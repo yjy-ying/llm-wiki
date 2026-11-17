@@ -43,7 +43,12 @@ S6 的論證順序是：先有一項研究的觀察 → 這類研究受到批評
 - 作者指出，雖然已調整飲食品質、壓力、定期健檢等因素，飲食習慣仍有可能只是生活規律或整體重視健康的標記（S1）。這和 S6 提出的疑慮方向一致（S6）。
   > "Although we adjusted for factors such as diet quality, stress and having regular physical exams to control for a chaotic versus stable lifestyle, it is possible that eating habits could be a marker of lifestyle consistency or general health-seeking behavior." — S1, Discussion
 
-另一個常見方法是把人隨機分組，讓兩組在各方面一開始就差不多；這部分待 ingest 隨機對照試驗後補上（本句為 wiki 的待辦說明，非 S1、S6 內容）。
+### 方法二：隨機分組（S3、S4、S5 的做法）
+
+把人隨機分組，讓兩組在其他方面一開始就差不多，干擾因子的影響自然變小（本 wiki 的教學說明，見[觀察型研究 vs 隨機對照試驗](observational-vs-rct.md)）。
+
+- S5 作者認為，隨機對照試驗和觀察型研究結果不一致，很可能反映了社經因素和健康生活型態造成的殘餘干擾（S5）。
+  > "the discordance between findings from the randomised controlled trials and observational studies are likely to reflect residual confounding by socioeconomic factors and healthy lifestyles" — S5, Discussion
 
 也要注意：調整後關聯變弱，不一定都是干擾因子造成的，也可能是調整到了[中介因子](mediator.md)（S1 稱 BMI、高血壓等為可能的中介因子）。
 
@@ -56,6 +61,7 @@ S6 的論證順序是：先有一項研究的觀察 → 這類研究受到批評
 
 ## 出處
 - S1：Cahill et al. 2013, *Circulation*
+- S5：Sievert et al. 2019, *BMJ*
 - S6：Shmerling 2017, Harvard Health Blog
 - （見 [sources.md](../../sources.md)）
 

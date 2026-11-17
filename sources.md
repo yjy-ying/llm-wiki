@@ -30,5 +30,7 @@
 |---|---|---|
 | S2 樣本數 | S2 論文：6,550 人；S7 社論：6,674 人 | 6,550（以原始論文為準） |
 | S1 事件數 | S1 論文：1,527 例冠心病；哈佛新聞稿：1,572 例 | 1,527（以原始論文為準） |
+| S3 樣本數 | S3 論文：309 人隨機分組、283 人完成；S5 表格：204 人（82.6% 女性） | 以 S3 論文為準；差異原因 S5 未說明 |
+| S3 PDF 抽字 | PDF 轉文字時，負號與 ± 被轉成「2」「6」（例：−0.71 ± 1.16 → 20.71 6 1.16） | 這些數字不做引句 |
 | S1 內部不一致 | Results 段：60 歲以下男性「50% higher risk」，同一句卻寫 RR = 1.55（相當於高 55%） | 兩者並列，不自行判斷 |
-| S1 內部語氣差異 | Abstract："were mediated by BMI…"；Results / Discussion："potential mediators"、"suggesting … may" | 採用較保守的「可能的中介因子」 |
+| S1 內部語氣差異 | Abstract："were mediated by BMI…"；Results / Discussion："potential mediators"、"suggesting … may" | 兩種語氣並列（見 concepts/mediator.md），不替原文選邊 |

@@ -44,11 +44,23 @@
 - **例子**：晚上 11 點睡、早上 7 點起床，中間 8 小時沒吃東西，就是空腹。
 - **出現在**：[早餐是最重要的一餐嗎？](topics/most-important-meal.md)
 
+### meta-analysis
+- **名稱**：統合分析（Meta-analysis）
+- **白話**：把多個研究的結果合起來算，看整體趨勢。
+- **例子**：S5 共納入 13 個試驗：7 個看體重變化，10 個看熱量攝取（S5，卡片 C5-01）。
+- **出現在**：[Sievert 2019](studies/sievert-2019.md)、[觀察型研究 vs 隨機對照試驗](concepts/observational-vs-rct.md)
+
 ### mediator
 - **名稱**：中介因子（Mediator）
 - **白話**：A 影響 B 的「中間站」（A → M → B）。統計上調整中介因子，A 和 B 的關聯通常會變弱。
 - **例子**：S1 調整 BMI、高膽固醇、高血壓和糖尿病這些可能的中介因子後，RR 從 1.27 減弱為 1.18（S1，卡片 C1-03、C1-05）。
 - **出現在**：[中介因子](concepts/mediator.md)
+
+### rct
+- **名稱**：隨機對照試驗（Randomized Controlled Trial, RCT）
+- **白話**：用隨機（像抽籤）的方式決定誰接受處理、誰不接受，再比較兩組結果；比觀察型研究更能推論因果。
+- **例子**：S3 把 309 位想減重的成人隨機分成三組，16 週後發現被分到哪一組對減重沒有顯著影響（S3，卡片 C3-03、C3-05）。
+- **出現在**：[觀察型研究 vs 隨機對照試驗](concepts/observational-vs-rct.md)、[Dhurandhar 2014](studies/dhurandhar-2014.md)、[Betts 2014](studies/betts-2014.md)
 
 ### rr
 - **名稱**：相對風險（Relative Risk, RR）
