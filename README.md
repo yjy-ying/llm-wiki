@@ -7,7 +7,7 @@
 |---|---|
 | 1. Wiki 主題與介紹 | [本頁第 1 節](#1-wiki-主題與介紹) |
 | 2. LLM Wiki 成果 | [wiki/index.md](wiki/index.md)（15 頁）、規則 [AGENTS.md](AGENTS.md)、資料 [sources.md](sources.md) |
-| 3. 教學 HTML 簡報 | **GitHub Pages：`（推上 GitHub 後填入）`**；原始檔 [docs/index.html](docs/index.html) |
+| 3. 教學 HTML 簡報 | **GitHub Pages：<https://yjy-ying.github.io/llm-wiki/>**；原始檔 [docs/index.html](docs/index.html) |
 | 4. loop / graph 設計 | [本頁第 3 節](#3-loop--graph-設計) |
 | 5. 實際執行與檢查紀錄 | [本頁第 4 節](#4-實際執行與檢查紀錄)、完整紀錄 [wiki/log.md](wiki/log.md)、git 歷史 |
 | 6. 反思 | [本頁第 5 節](#5-反思) |
