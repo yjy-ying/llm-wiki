@@ -220,6 +220,40 @@ def check_banned():
     return errs
 
 
+def check_card_usage():
+    """⑩ 頁面引句都來自引句卡；⑪ 引句上方的中文句保留限定詞，轉述要寫出「轉述」。"""
+    from cards import all_cards, check_zh
+    cards = all_cards()
+    by_sid = {}
+    for c in cards:
+        if c.get("原文"):
+            by_sid.setdefault(c["sid"], []).append(c)
+    errs = []
+    for p in content_pages():
+        lines = p.read_text(encoding="utf-8").splitlines()
+        for i, line in enumerate(lines):
+            m = QUOTE_RE.match(line)
+            if not m:
+                continue
+            quote, sid = m.group(1), m.group(2)
+            qn = [norm(x) for x in re.split(r"\.\.\.|…", quote) if norm(x)]
+            card = next((c for c in by_sid.get(sid, [])
+                         if all(x in norm(c["原文"]) for x in qn)), None)
+            if card is None:
+                errs.append(f"{rel(p)}:{i + 1} ⑩ 引句沒有對應的引句卡（cards/{sid}.md）")
+                continue
+            j = i - 1
+            while j >= 0 and (lines[j].strip().startswith(">") or not lines[j].strip()):
+                j -= 1
+            zh = lines[j] if j >= 0 else ""
+            # 用整張卡的原文判斷限定詞：頁面只引半句時，另一半的限定詞仍要保留
+            for e in check_zh(card["原文"], zh):
+                errs.append(f"{rel(p)}:{j + 1} ⑪ {card['id']}：{e}")
+            if "轉述" in card["主詞"] and "轉述" not in zh:
+                errs.append(f"{rel(p)}:{j + 1} ⑪ {card['id']}：卡片主詞是轉述，中文要寫出「轉述」")
+    return errs
+
+
 CHECKS = [
     ("①", "連結沒斷", check_links),
     ("②", "每個說法有出處", check_citations),
@@ -227,6 +261,7 @@ CHECKS = [
     ("④", "沒有孤兒頁面", check_orphans),
     ("⑤", "格式完整", check_format),
     ("⑥", "沒有禁用語", check_banned),
+    ("⑩⑪", "引句來自卡片且保留限定詞", check_card_usage),
 ]
 
 
