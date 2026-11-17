@@ -23,7 +23,8 @@ ROOT = Path(__file__).resolve().parent.parent
 DECK = ROOT / "docs" / "index.html"
 MAX_CHARS = 260
 BANNED = ["你應該", "建議大家", "建議你", "一定要吃早餐", "不要吃早餐", "你最好", "應該吃早餐", "應該不吃早餐"]
-NUM_RE = re.compile(r"\d+(?:[.,]\d+)*")
+# 千分位只認「逗號後接剛好 3 位數字」，避免把「1.33, 95」黏成一個數字
+NUM_RE = re.compile(r"\d{1,3}(?:,\d{3})+(?:\.\d+)?(?!\d)|\d+(?:\.\d+)?")
 SKIP_TAGS = {"script", "style"}
 
 
@@ -77,7 +78,7 @@ def main(argv):
     if not 8 <= n <= 15:
         errs.append(f"D4 投影片有 {n} 張，應在 8–15 張之間")
     for i, s in enumerate(d.slides, 1):
-        body = "".join(s["count"])
+        body = " ".join(s["count"])  # 用空白接起來，避免相鄰元素的數字黏在一起
         text = re.sub(r"\s+", "", body)
         if not s["src"]:
             errs.append(f"第 {i} 張 D1 沒有 data-src")
@@ -88,10 +89,9 @@ def main(argv):
                 errs.append(f"第 {i} 張 D1 引用的頁面不存在：{src}")
             else:
                 pages.append(p.read_text(encoding="utf-8"))
-        corpus = re.sub(r"\s+", "", "".join(pages))
-        corpus_nums = {x.replace(",", "") for x in NUM_RE.findall(corpus)}
+        corpus_nums = {x.replace(",", "") for x in NUM_RE.findall("\n".join(pages))}
         if pages:
-            for num in sorted(set(NUM_RE.findall(text))):
+            for num in sorted(set(NUM_RE.findall(body))):
                 if num.replace(",", "") not in corpus_nums:
                     errs.append(f"第 {i} 張 D2 數字「{num}」在引用的 wiki 頁面中找不到")
         if len(text) > MAX_CHARS:

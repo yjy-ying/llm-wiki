@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>早餐一定要吃嗎</title>
+<style>
+:root{
+  --bg:#f6f3ee; --paper:#fffdf9; --ink:#1f2328; --muted:#5b6470; --line:#e3ddd3;
+  --accent:#c2410c; --accent-soft:#fde7d8; --blue:#1d4ed8; --blue-soft:#dbe6fd;
+  --green:#15803d; --green-soft:#dcf2e3;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171a; --paper:#1d2024; --ink:#ece8e1; --muted:#a3abb5; --line:#2f343a;
+    --accent:#fb923c; --accent-soft:#3a2416; --blue:#93b4fb; --blue-soft:#1c2a47;
+    --green:#6ee7a0; --green-soft:#16301f;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15171a; --paper:#1d2024; --ink:#ece8e1; --muted:#a3abb5; --line:#2f343a;
+  --accent:#fb923c; --accent-soft:#3a2416; --blue:#93b4fb; --blue-soft:#1c2a47;
+  --green:#6ee7a0; --green-soft:#16301f;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.6;overflow:hidden}
+.deck{position:relative;height:100%;width:100%}
+.slide{position:absolute;inset:0;display:none;padding:clamp(20px,5vw,64px) clamp(16px,6vw,96px) 96px;overflow-y:auto}
+.slide.active{display:flex;flex-direction:column;justify-content:center;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.inner{max-width:1040px;width:100%;margin:0 auto}
+.kicker{color:var(--accent);font-weight:700;letter-spacing:.08em;font-size:clamp(13px,1.4vw,16px);margin:0 0 8px}
+h1{font-size:clamp(34px,6vw,72px);line-height:1.15;margin:0 0 16px}
+h2{font-size:clamp(26px,3.6vw,44px);line-height:1.25;margin:0 0 20px}
+p,li{font-size:clamp(17px,2vw,24px)}
+.lead{color:var(--muted);font-size:clamp(18px,2.2vw,26px)}
+ul{padding-left:1.2em;margin:0}
+li{margin:6px 0}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.card h3{margin:0 0 6px;font-size:clamp(18px,2vw,24px)}
+.card p{margin:0;font-size:clamp(15px,1.7vw,20px);color:var(--muted)}
+.card.obs{border-top:6px solid var(--accent)}
+.card.rct{border-top:6px solid var(--blue)}
+.card.ok{border-top:6px solid var(--green)}
+.big{font-size:clamp(48px,9vw,110px);font-weight:800;color:var(--accent);line-height:1}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:14px;font-weight:700;margin-right:6px}
+.tag.obs{background:var(--accent-soft);color:var(--accent)}
+.tag.rct{background:var(--blue-soft);color:var(--blue)}
+.note{color:var(--muted);font-size:clamp(14px,1.5vw,18px)}
+.bars{display:grid;gap:10px;margin:16px 0}
+.bar{display:grid;grid-template-columns:minmax(110px,180px) 1fr;align-items:center;gap:12px}
+.bar span{font-size:clamp(14px,1.6vw,19px)}
+.bar i{display:block;height:28px;border-radius:8px;background:var(--line);position:relative}
+.bar i b{position:absolute;inset:0 auto 0 0;border-radius:8px;background:var(--accent)}
+.bar i em{position:absolute;right:8px;top:2px;font-style:normal;font-weight:700;font-size:15px}
+.ci{width:100%;height:auto;margin-top:8px}
+.ci text{fill:var(--ink);font-size:15px}
+.ci .muted{fill:var(--muted)}
+.ci line.axis{stroke:var(--muted);stroke-dasharray:5 5}
+.ci line.range{stroke:var(--accent);stroke-width:4;stroke-linecap:round}
+.ci circle{fill:var(--accent)}
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:stretch}
+.vs .mid{align-self:center;font-weight:800;color:var(--muted)}
+.qs{counter-reset:q;list-style:none;padding:0}
+.qs li{counter-increment:q;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px 18px 12px 64px;position:relative;margin:12px 0}
+.qs li::before{content:counter(q);position:absolute;left:18px;top:10px;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:800}
+footer.src-note{position:absolute;left:clamp(16px,6vw,96px);right:clamp(16px,6vw,96px);bottom:60px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:6px}
+footer.src-note code{font-size:12px}
+.nav{position:fixed;bottom:12px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:12px;z-index:5}
+.nav button{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:999px;width:44px;height:44px;font-size:20px;cursor:pointer}
+.nav button:focus-visible{outline:3px solid var(--accent)}
+.count{font-variant-numeric:tabular-nums;color:var(--muted);min-width:64px;text-align:center}
+.progress{position:fixed;top:0;left:0;height:4px;background:var(--accent);transition:width .3s}
+@media (max-width:640px){
+  .vs{grid-template-columns:1fr}
+  .vs .mid{text-align:center}
+  .slide{justify-content:flex-start;padding-top:28px}
+  footer.src-note{position:static;margin-top:24px}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<main class="deck" id="deck">
+
+<!-- 1 -->
+<section class="slide" data-src="wiki/topics/most-important-meal.md">
+  <div class="inner">
+    <p class="kicker">LLM WIKI 教學簡報</p>
+    <h1>早餐一定要吃嗎？</h1>
+    <p class="lead">不給答案，帶你看懂研究到底怎麼說，以及為什麼研究之間會吵架。</p>
+  </div>
+  <footer class="src-note">出處：<code>wiki/topics/most-important-meal.md</code></footer>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-src="wiki/topics/most-important-meal.md">
+  <div class="inner">
+    <p class="kicker">先問一個問題</p>
+    <h2>「早餐是一天最重要的一餐」從哪來？</h2>
+    <div class="grid">
+      <div class="card"><h3>大家都這樣說</h3><p>理由：起床時大概剛經過一天中最長的空腹時間。</p></div>
+      <div class="card"><h3>但正式建議呢？</h3><p>針對成人，並沒有以證據為基礎的建議；2010 年美國飲食指南只建議兒童吃早餐。</p></div>
+      <div class="card"><h3>作者立場也不同</h3><p>科普作者認為它可能是迷思；心臟研究作者認為早餐可能有益，但需要重現。</p></div>
+    </div>
+  </div>
+  <footer class="src-note">出處：<code>wiki/topics/most-important-meal.md</code></footer>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-src="wiki/concepts/observational-vs-rct.md">
+  <div class="inner">
+    <p class="kicker">核心觀念</p>
+    <h2>兩種研究：觀察 vs 實驗</h2>
+    <div class="vs">
+      <div class="card obs"><span class="tag obs">觀察型研究</span><h3>看人們自己的選擇</h3><p>記錄誰平常吃早餐，再看誰後來比較胖或生病。只能看出「相關」。</p></div>
+      <div class="mid">vs</div>
+      <div class="card rct"><span class="tag rct">隨機對照試驗 RCT</span><h3>用抽籤決定誰吃</h3><p>兩組一開始大致相同，差異比較能歸因於早餐。比較能推論「因果」。</p></div>
+    </div>
+    <p class="note">在早餐研究中，這兩種研究的結論並不一致。</p>
+  </div>
+  <footer class="src-note">出處：<code>wiki/concepts/observational-vs-rct.md</code></footer>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-src="wiki/studies/cahill-2013.md wiki/concepts/relative-risk.md">
+  <div class="inner">
+    <p class="kicker"><span class="tag obs">觀察型</span>Cahill 2013</p>
+    <h2>不吃早餐的男性，冠心病風險高 27%</h2>
+    <div class="bars" aria-label="相對風險比較">
+      <div class="bar"><span>吃早餐（基準）</span><i><b style="width:60%;background:var(--muted)"></b><em>1</em></i></div>
+      <div class="bar"><span>不吃早餐</span><i><b style="width:76.2%"></b><em>1.27</em></i></div>
+    </div>
+    <ul>
+      <li>26,902 名美國男性，追蹤 16 年</li>
+      <li>RR 1.27 = 風險約 1.27 倍，是「相對」比較，不是 27% 的人會生病</li>
+    </ul>
+  </div>
+  <footer class="src-note">出處：<code>wiki/studies/cahill-2013.md</code>、<code>wiki/concepts/relative-risk.md</code></footer>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-src="wiki/concepts/confounding.md wiki/studies/cahill-2013.md">
+  <div class="inner">
+    <p class="kicker">陷阱一：干擾因子</p>
+    <h2>但兩群人本來就不一樣</h2>
+    <p>不吃早餐的人比較年輕，也比較可能：</p>
+    <div class="grid">
+      <div class="card"><h3>抽菸</h3></div>
+      <div class="card"><h3>運動較少</h3></div>
+      <div class="card"><h3>喝較多酒</h3></div>
+    </div>
+    <p class="note">這些因素可能同時影響「吃不吃早餐」和「健康」。作者也承認，無法排除有未測量到的干擾因子。</p>
+  </div>
+  <footer class="src-note">出處：<code>wiki/concepts/confounding.md</code>、<code>wiki/studies/cahill-2013.md</code></footer>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-src="wiki/concepts/mediator.md">
+  <div class="inner">
+    <p class="kicker">陷阱二：調整越多，數字越小</p>
+    <h2>風險數字隨調整而減弱</h2>
+    <svg class="ci" viewBox="0 0 640 190" role="img" aria-label="三個模型的相對風險與信賴區間">
+      <line class="axis" x1="160" y1="20" x2="160" y2="170"/>
+      <text x="152" y="186" class="muted">1</text>
+      <text x="0" y="48">只調整年齡</text>
+      <line class="range" x1="233" y1="44" x2="388" y2="44"/><circle cx="292" cy="44" r="7"/><text x="402" y="49">1.33</text>
+      <text x="0" y="98">＋生活型態</text>
+      <line class="range" x1="186" y1="94" x2="372" y2="94"/><circle cx="268" cy="94" r="7"/><text x="402" y="99">1.27</text>
+      <text x="0" y="148">＋BMI、血壓等</text>
+      <line class="range" x1="152" y1="144" x2="332" y2="144"/><circle cx="232" cy="144" r="7"/><text x="402" y="149">1.18（0.98–1.43）</text>
+    </svg>
+    <p class="note">最後一行的範圍跨過 1，就不再顯著。作者把 BMI、血壓等視為「可能的中介因子」：早餐影響心臟的中間站。</p>
+  </div>
+  <footer class="src-note">出處：<code>wiki/concepts/mediator.md</code></footer>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-src="wiki/studies/dhurandhar-2014.md">
+  <div class="inner">
+    <p class="kicker"><span class="tag rct">RCT</span>Dhurandhar 2014</p>
+    <h2>建議吃或不吃早餐，體重沒有差別</h2>
+    <ul>
+      <li>309 位想減重的成人，隨機分成三組，16 週</li>
+      <li>被分到哪一組，對減重沒有顯著影響</li>
+      <li>遵從率：吃早餐組 93.6%、不吃早餐組 92.4%（自我回報）</li>
+    </ul>
+    <p class="note">注意：它測的是「建議」的效果，不是實際吃了多少。</p>
+  </div>
+  <footer class="src-note">出處：<code>wiki/studies/dhurandhar-2014.md</code></footer>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-src="wiki/studies/betts-2014.md">
+  <div class="inner">
+    <p class="kicker"><span class="tag rct">RCT</span>Betts 2014</p>
+    <h2>吃早餐：吃得比較多，也動得比較多</h2>
+    <div class="grid">
+      <div class="card obs"><h3>＋539 大卡</h3><p>每天的熱量攝取</p></div>
+      <div class="card rct"><h3>＋442 大卡</h3><p>每天的活動消耗</p></div>
+      <div class="card ok"><h3>體重沒差</h3><p>體重與體脂沒有差異</p></div>
+    </div>
+    <p class="note">對象只有 33 位偏瘦成人、6 週。另一份統合分析則發現總活動消耗沒有顯著較高，結果並不一致。</p>
+  </div>
+  <footer class="src-note">出處：<code>wiki/studies/betts-2014.md</code></footer>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-src="wiki/studies/sievert-2019.md">
+  <div class="inner">
+    <p class="kicker">統合分析 · Sievert 2019</p>
+    <h2>把 13 個實驗合起來看</h2>
+    <div class="grid">
+      <div class="card"><div class="big">0.44</div><p>吃早餐的人平均重的公斤數</p></div>
+      <div class="card"><div class="big">260</div><p>吃早餐的人每天約多吃的大卡</p></div>
+    </div>
+    <p class="note">但：試驗品質大多偏低、追蹤很短（體重平均 7 週、熱量平均 2 週），熱量結果各試驗相當不一致（I²=80%）。</p>
+  </div>
+  <footer class="src-note">出處：<code>wiki/studies/sievert-2019.md</code></footer>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-src="wiki/debates/do-skippers-eat-more-later.md">
+  <div class="inner">
+    <p class="kicker">研究吵架了</p>
+    <h2>不吃早餐的人，之後會補吃嗎？</h2>
+    <div class="vs">
+      <div class="card obs"><h3>會</h3><p>科普文章轉述：不吃早餐的人當天稍晚往往吃得比較多。</p></div>
+      <div class="mid">vs</div>
+      <div class="card rct"><h3>沒有明顯補吃</h3><p>觀察型研究從進食次數推論；實驗與統合分析作者也認為補吃很少。</p></div>
+    </div>
+    <p class="note">兩邊衡量的東西不同（份量 vs 次數），實驗也多為短期，所以目前不下結論。</p>
+  </div>
+  <footer class="src-note">出處：<code>wiki/debates/do-skippers-eat-more-later.md</code></footer>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-src="wiki/topics/breakfast-and-weight.md wiki/topics/breakfast-and-heart.md">
+  <div class="inner">
+    <p class="kicker">整理</p>
+    <h2>我們知道的，和還不知道的</h2>
+    <div class="grid">
+      <div class="card ok"><h3>比較有把握</h3><p>實驗沒有發現吃早餐有助減重；觀察型研究發現不吃早餐與心臟病相關。</p></div>
+      <div class="card obs"><h3>還不確定</h3><p>相關是不是因果？長期會怎樣？女性、兒童、營養不足的人呢？</p></div>
+    </div>
+    <p class="note">證據的強弱不同、研究對象也不同，所以沒有一句話能回答所有人。</p>
+  </div>
+  <footer class="src-note">出處：<code>wiki/topics/breakfast-and-weight.md</code>、<code>wiki/topics/breakfast-and-heart.md</code></footer>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-src="wiki/concepts/observational-vs-rct.md wiki/concepts/confounding.md">
+  <div class="inner">
+    <p class="kicker">帶走這個能力</p>
+    <h2>看到「研究顯示…」時，問三個問題</h2>
+    <ol class="qs">
+      <li>是<strong>觀察</strong>還是<strong>實驗</strong>？只能看相關，還是能推論因果？</li>
+      <li>有沒有<strong>干擾因子</strong>？兩群人本來就不一樣嗎？</li>
+      <li>研究<strong>對象是誰、多久</strong>？結果能套用到我身上嗎？</li>
+    </ol>
+    <p class="note">本簡報僅供教學，不構成醫療建議。</p>
+  </div>
+  <footer class="src-note">出處：<code>wiki/concepts/observational-vs-rct.md</code>、<code>wiki/concepts/confounding.md</code></footer>
+</section>
+
+</main>
+<nav class="nav" aria-label="投影片導覽">
+  <button id="prev" aria-label="上一張">‹</button>
+  <span class="count" id="count"></span>
+  <button id="next" aria-label="下一張">›</button>
+</nav>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0;
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i)});
+    document.getElementById('count').textContent=(i+1)+' / '+slides.length;
+    document.getElementById('progress').style.width=((i+1)/slides.length*100)+'%';
+    if(location.hash!=='#'+(i+1)) history.replaceState(null,'','#'+(i+1));
+  }
+  document.getElementById('prev').onclick=function(){show(i-1)};
+  document.getElementById('next').onclick=function(){show(i+1)};
+  document.addEventListener('keydown',function(e){
+    if(['ArrowRight','PageDown',' '].indexOf(e.key)>=0){e.preventDefault();show(i+1)}
+    if(['ArrowLeft','PageUp'].indexOf(e.key)>=0){e.preventDefault();show(i-1)}
+    if(e.key==='Home')show(0); if(e.key==='End')show(slides.length-1);
+  });
+  var x0=null;
+  document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(x0===null)return; var dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>50) show(i+(dx<0?1:-1)); x0=null;
+  });
+  function fromHash(){var h=parseInt(location.hash.slice(1),10);show(isNaN(h)?0:h-1)}
+  window.addEventListener('hashchange',fromHash);
+  fromHash();
+})();
+</script>
+</body>
+</html>
