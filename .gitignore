@@ -1,0 +1,7 @@
+# 原始資料不上傳（著作權）
+raw/
+raw_text/
+
+# Python
+__pycache__/
+*.pyc
