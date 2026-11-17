@@ -27,14 +27,36 @@ S6 的論證順序是：先有一項研究的觀察 → 這類研究受到批評
 
 ## 研究者怎麼處理干擾因子？
 
-目前已 ingest 的資料（S6）沒有談到處理方法，這一節待之後的資料補上（本句為 wiki 的待辦說明，非 S6 內容）。
+### 方法一：統計調整（S1 的做法）
+
+觀察型研究沒辦法控制誰吃早餐，所以研究者會先測量可能的干擾因子，再用統計模型把它們的影響「扣掉」（S1）。
+
+- **先找出兩群人的差異**：比起有吃早餐的人，沒吃早餐的參與者比較年輕，也比較可能抽菸、全職工作、未婚、運動較少、喝較多酒（S1）。
+  > "Participants who did not report eating breakfast were younger than those who did, and were more likely to be smokers, employed full time, unmarried, less physically active, and drink more alcohol" — S1, Results
+- **再調整**：多變項模型調整了已知與疑似的冠心病風險因子，例如熱量攝取（S1）。
+  > "Multivariate models were adjusted for known and suspected risk factors of CHD such as energy intake" — S1, Methods
+
+### 調整的限制
+
+- 只能調整「有測量到」的因素；作者表示，他們無法排除有未測量到的干擾因子的可能性（S1）。
+  > "we cannot exclude the possibility of unmeasured confounding" — S1, Discussion
+- 作者指出，雖然已調整飲食品質、壓力、定期健檢等因素，飲食習慣仍有可能只是生活規律或整體重視健康的標記（S1）。這和 S6 提出的疑慮方向一致（S6）。
+  > "Although we adjusted for factors such as diet quality, stress and having regular physical exams to control for a chaotic versus stable lifestyle, it is possible that eating habits could be a marker of lifestyle consistency or general health-seeking behavior." — S1, Discussion
+
+另一個常見方法是把人隨機分組，讓兩組在各方面一開始就差不多；這部分待 ingest 隨機對照試驗後補上（本句為 wiki 的待辦說明，非 S1、S6 內容）。
+
+也要注意：調整後關聯變弱，不一定都是干擾因子造成的，也可能是調整到了[中介因子](mediator.md)（S1 稱 BMI、高血壓等為可能的中介因子）。
 
 ## 相關頁面
 - [不吃早餐會變胖嗎？](../topics/breakfast-and-weight.md)
 - [Shmerling 2017（S6）](../studies/shmerling-2017.md)
+- [Cahill 2013（S1）](../studies/cahill-2013.md)
+- [中介因子](mediator.md)
 - [名詞表：干擾因子](../glossary.md#confounding)
 
 ## 出處
-- S6：Shmerling 2017, Harvard Health Blog（見 [sources.md](../../sources.md)）
+- S1：Cahill et al. 2013, *Circulation*
+- S6：Shmerling 2017, Harvard Health Blog
+- （見 [sources.md](../../sources.md)）
 
 *僅供教學，不構成醫療建議。*

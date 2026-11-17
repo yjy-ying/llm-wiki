@@ -130,6 +130,8 @@ def check_citations():
                 continue
             if re.search(r"\b" + SID + r"\b", body):
                 continue
+            if "本 wiki 的" in body:  # 明確標示為 wiki 自己的說明／解讀（AGENTS.md 5 節）
+                continue
             nxt = bl[idx + 1] if idx + 1 < len(bl) else None
             if nxt and nxt[2] == "quote" and re.search(SID, nxt[3]):
                 continue
